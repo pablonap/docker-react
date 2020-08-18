@@ -1,0 +1,14 @@
+language: generic 
+
+sudo: required
+# Set a copy of docker running
+services:
+    - docker
+
+# Build the image using Dockerfile.dev
+before_install:
+    - docker build -t pablonap/docker-react -f Dockerfile.dev .
+
+# Tell Travis how to run the test
+script:
+    - docker run -e CI=true pablonap/docker-react npm run test
