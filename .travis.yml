@@ -12,3 +12,16 @@ before_install:
 # Tell Travis how to run the test
 script:
     - docker run -e CI=true pablonap/docker-react npm run test
+
+# Configuration to tell Travis how to take the app and deploy it off to AWS.
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker-react"
+    env: "DockerReact-env"
+    bucket_name: elasticbeanstalk-us-east-2-434318868032
+    bucket_path: "docker-react"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
